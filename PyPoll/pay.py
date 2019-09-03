@@ -1,11 +1,10 @@
 #import library
 import os
 import csv
-import locale
-locale.setlocale( locale.LC_ALL, '' )
+
 
 # file path
-file = "/Users/seve/UCBSF201908DATA2/01-Lesson-Plans/03-Python/Homework/PyPoll/Resources/election_data.csv"
+file = "election_data.csv"
 
 # Declare Variables
 total_votes = 0
@@ -14,23 +13,19 @@ correy_votes = 0
 li_votes = 0
 otooley_votes = 0
 
-# Open csv in default read mode with context manager
+# open csv
 with open(file,newline="", encoding="utf-8") as poll:
-
-    # Store data under the csvreader variable
     csvreader = csv.reader(poll,delimiter=",")
 
-    # Skip the header so we iterate through the actual values
+# skip headers
     header = next(csvreader)
 
-    # Iterate through each row in the csv
+# Iterate through rows
     for row in csvreader:
 
-        # Count the unique Voter ID's and store in variable  called total_votes
+# count  unique voters
         total_votes +=1
 
-        # We have four candidates if the name is found, count the times it appears and store in a list
-        # We can use this values in our percent vote calculation in the print statements
         if row[2] == "Khan":
             khan_votes +=1
         elif row[2] == "Correy":
@@ -40,12 +35,12 @@ with open(file,newline="", encoding="utf-8") as poll:
         elif row[2] == "O'Tooley":
             otooley_votes +=1
 
- # To find the winner we want to make a dictionary out of the two lists we previously created
-candidates = ["Khan", "Correy", "Li","O'Tooley"]
-votes = [khan_votes, correy_votes,li_votes,otooley_votes]
+ # to determine winner, combine two list via dictionary
+candidates = ["Li", "Correy", "Khan","O'Tooley"]
+votes = [li_votes, correy_votes,khan_votes,otooley_votes]
 
-# We zip them together the list of candidate(key) and the total votes(value)
-# Return the winner using a max function of the dictionary
+
+#using zip() to map values
 dict_candidates_and_votes = dict(zip(candidates,votes))
 key = max(dict_candidates_and_votes, key=dict_candidates_and_votes.get)
 
@@ -60,18 +55,19 @@ otooley_percent = (otooley_votes/total_votes) * 100
 otooley = round(otooley_percent)
 
 # Print the summary table
-print("Election Results")
-print("----------------------------")
+print(f"Election Results")
+print(f"----------------------------")
 print(f"Total Votes: {total_votes}")
 print(f"----------------------------")
 print(f"Khan: {khan:.3f}% ({khan_votes})")
 print(f"Correy: {correy:.3f}% ({correy_votes})")
 print(f"Li: {li:.3f}% ({li_votes})")
 print(f"O'Tooley: {otooley:.3f}% ({otooley_votes})")
-print("----------------------------")
-print("Winner: {key}")
-print("----------------------------")
+print(f"----------------------------")
+print(f"Winner: {key}")
+print(f"----------------------------")
 
 # Output files
 
-#with open(output_file,"w") as file:
+#with open(output_main,"w") as output:
+    #output.write(summary_print)

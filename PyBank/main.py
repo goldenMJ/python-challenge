@@ -6,45 +6,53 @@ import locale
 # file path
 file = "PyBank.csv"
 
-# Create empty lists to iterate through specific rows for the following variables
+# create empty lists to iterate through rows
 total_months = []
 net_total_profit = []
 monthly_profit_change = []
 
-# Open csv in default read mode with context manager
+# open csv in default read mode with context manager
 with open(file,newline="", encoding="utf-8") as bank:
     csvreader = csv.reader(bank,delimiter=",")
-        # Skip the header labels to iterate with the values
+
+# skip the headers
     header = next(csvreader)
 
-    # Iterate through the rows in the stored file contents
+# iterate through the rows in csv
     for row in csvreader:
 
-        # Append the total months and total profit to their corresponding lists
+# append
         total_months.append(row[0])
         net_total_profit.append(int(row[1]))
 
-            # Iterate through the profits in order to get the monthly change in profits
-    for i in range(len(net_total_profit)-1):
+# iterate through the profits to caclulate monthly change
+    for x in range(len(net_total_profit)-1):
 
-        # Take the difference between two months and append to monthly profit change
-        monthly_profit_change.append(net_total_profit[i+1]-net_total_profit[i])
+# take the difference and append
+        monthly_profit_change.append(net_total_profit[x+1]-net_total_profit[x])
 
-# Obtain the max and min of the the montly profit change list
+# get max and min
 max_increase_value = max(monthly_profit_change)
 max_decrease_value = min(monthly_profit_change)
 
-# Correlate max and min to the proper month using month list and index from max and min
-#We use the plus 1 at the end since month associated with change is the + 1 month or next month
+# correlate max and min
 max_increase_month = monthly_profit_change.index(max(monthly_profit_change)) + 1
 max_decrease_month = monthly_profit_change.index(min(monthly_profit_change)) + 1
 
-# Print Statements
+# print output
 
 print("Financial Analysis")
 print("----------------------------")
-print(f"Total Months: ${len(total_months)}")
+print(f"Total Months: {len(total_months)}")
 print(f"Total: ${sum(net_total_profit)}")
+print("----------------------------")
 print(f"Average Change: ${round(sum(monthly_profit_change)/len(monthly_profit_change),2)}")
 print(f"Greatest Increase in Profits: {total_months[max_increase_month]} (${(str(max_increase_value))})")
 print(f"Greatest Decrease in Profits: {total_months[max_decrease_month]} (${(str(max_decrease_value))})")
+print("----------------------------")
+
+
+#with open(output_file,"w") as file:
+
+#output_main = "output_main.txt"
+#with open(output_main,"w") as output:
