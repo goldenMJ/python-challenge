@@ -56,9 +56,9 @@ otooley = round(otooley_percent)
 
 # Print the summary table
 print(f"Election Results")
-print(f"----------------------------")
+print("----------------------------")
 print(f"Total Votes: {total_votes}")
-print(f"----------------------------")
+print("----------------------------")
 print(f"Khan: {khan:.3f}% ({khan_votes})")
 print(f"Correy: {correy:.3f}% ({correy_votes})")
 print(f"Li: {li:.3f}% ({li_votes})")
@@ -69,6 +69,6 @@ print(f"----------------------------")
 
 # Output files
 
-#output_main = "output_main.txt"
-#with open(output_main,"w") as output:
-    #output.write(summary_print)
+output_main = "output_main.txt"
+with open(output_main,"w") as output:
+    output.write(summary_print)
